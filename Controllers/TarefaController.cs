@@ -8,10 +8,46 @@ namespace APITarefas.Controllers
     public class TarefaController : Controller
     {
         private readonly ITarefaRepository _tarefaRepository;
-        [HttpGet("[action]")]
-        public List<Tarefa> ObterTodasTarefas()
+
+        public TarefaController(ITarefaRepository tarefaRepository)
         {
-            return _tarefaRepository.ObterTodasTarefas();
+            _tarefaRepository = tarefaRepository;
+        }
+
+        [HttpGet("[action]")]
+        public List<Tarefa> ConsultarTodasAsTarefas()
+        {
+            return _tarefaRepository.ConsultarTodasAsTarefas();
+        }
+
+
+        [HttpGet("[action]")]
+        public List<Tarefa> ConsultarTodasAsTarefasEmAberto()
+        {
+            return _tarefaRepository.ConsultarTodasAsTarefasEmAberto();
+        }
+
+        [HttpGet("[action]")]
+        public List<Tarefa> ConsultarTodasAsTarefasConcluidas()
+        {
+            return _tarefaRepository.ConsultarTodasAsTarefasConcluidas();
+        }
+
+        [HttpPost("[action]")]
+        public int IncluirUmaNovaTarefa([FromBody] Tarefa tarefa)
+        {
+            return _tarefaRepository.IncluirUmaNovaTarefa(tarefa);
+        }
+        [HttpPut("[action]")]
+        public Tarefa? AtualizarADescriçãoDeUmaTarefa([FromBody] Tarefa tarefa)
+        {
+            return _tarefaRepository.AtualizarADescriçãoDeUmaTarefa(tarefa);
+        }
+
+        [HttpDelete("[action]/{id}")]
+        public void ExcluirUmaTarefa(int id)
+        {
+            _tarefaRepository.ExcluirUmaTarefa(id);
         }
     }
 }
